@@ -29,7 +29,7 @@ grafo = {
     '28' : [('27',390),('21',380),('22',190),('2',131),('9',320),('8',310)]
 }
 
-def recorrido_profundidad(grafo,nodo_inicial,nodo_final,sentido):
+def busqueda_profundidad(grafo,nodo_inicial,nodo_final,sentido):
     pila = [nodo_inicial]
     visitados = set()
     padres = {}
@@ -63,4 +63,4 @@ def recorrido_profundidad(grafo,nodo_inicial,nodo_final,sentido):
     else:
         print("No hay ruta existente")
 
-recorrido_profundidad(grafo,'14','25','antihorario')
+busqueda_profundidad(grafo,'14','25','antihorario')

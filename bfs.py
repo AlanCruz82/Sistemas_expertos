@@ -31,7 +31,7 @@ grafo = {
     '28' : [('27',390),('21',380),('22',190),('2',131),('9',320),('8',310)]
 }
 
-def recorrido_anchura(grafo,nodo_inicial,nodo_final,sentido):
+def busqueda_anchura(grafo,nodo_inicial,nodo_final,sentido):
     cola = deque([nodo_inicial])
     visitados = set()
     padres = {}
@@ -66,4 +66,4 @@ def recorrido_anchura(grafo,nodo_inicial,nodo_final,sentido):
     else:
         print("No hay ruta existente")
 
-recorrido_anchura(grafo,'14','25','horario')
+busqueda_anchura(grafo,'14','25','horario')
