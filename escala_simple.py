@@ -60,12 +60,22 @@ tabla = {
     '28': [1000,131,534,522,839,883,882,310,320,312,1576,258,620,797,619,605,447,469,636,728,380,190,591,534,723,550,407,0]
 }
 
+def obtener_heuristica(tabla,nodo_origen,nodo_destino):
+    # Si el nodo al que queremos llegar es mayor al nodo donde estamos
+    if int(nodo_destino) > int(nodo_origen):
+        # Tomamos el valor del renglon del nodo destino
+        heuristica = tabla[nodo_destino][int(nodo_origen)-1]
+    # Caso contrario
+    else:
+        # Tomamos el valor del nodo en el que estamos
+        heuristica = tabla[nodo_origen][int(nodo_destino)-1]
+    return heuristica
+
 def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
     nodo_actual = nodo_inicial
-    ruta = [nodo_inicial]
     padres = {}
     nodo_meta = False
-    heuristica_actual = tabla[nodo_final][int(nodo_actual)-1]
+    heuristica_actual = obtener_heuristica(tabla,nodo_actual,nodo_final)
 
     while not nodo_meta:
         print(nodo_actual, "Visitado")
@@ -84,16 +94,8 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
         mejor_hijo = False
 
         for hijo in hijos:
-            # Si el proximo nodo mejor es mayor al nodo final, obtenemos el valor
-            # heuristico del renglon del proximo nodo para no salir de los limites
-            # de cada renglon en la tabla
-            if(int(hijo[0]) > int(nodo_final)):
-                proxima_heuristica = tabla[hijo[0]][int(nodo_final)-1]
-            else:
-                proxima_heuristica = tabla[nodo_final][int(hijo[0])-1]
-
-            # Comparamos, en caso de que el proximo nodo tenga un mejor valor lo volvemos
-            # el actual
+            proxima_heuristica = obtener_heuristica(tabla,hijo[0],nodo_final)
+            # En caso de que el proximo nodo tenga un mejor valor lo volvemos el nodo actual
             if(proxima_heuristica <= heuristica_actual):
                 padres[hijo[0]] = nodo_actual
                 nodo_actual = hijo[0]
@@ -115,4 +117,4 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
     else:
         print("No existe un nodo proximo mejor")
 
-busqueda_escalada_simple(grafo,tabla,'5','14','antihorario')
+busqueda_escalada_simple(grafo,tabla,'14','5','horario')
