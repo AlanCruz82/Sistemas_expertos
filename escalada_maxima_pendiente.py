@@ -91,20 +91,26 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
         if sentido == 'antihorario':
             hijos = reversed(grafo[nodo_actual])
 
-        mejor_hijo = False
+        mejor_hijo = None
+        mejor_heuristica = heuristica_actual
 
         for hijo in hijos:
-            proxima_heuristica = obtener_heuristica(tabla,hijo[0],nodo_final)
-            # En caso de que el proximo nodo tenga un mejor valor lo volvemos el nodo actual
-            if(proxima_heuristica <= heuristica_actual):
-                padres[hijo[0]] = nodo_actual
-                nodo_actual = hijo[0]
-                heuristica_actual = proxima_heuristica
-                # Si encontramos un mejor nodo mantenemos la búsqueda
-                mejor_hijo = True
+            heuristica_hijo = obtener_heuristica(tabla,hijo[0],nodo_final)
+            print("Nodo", hijo[0], "heuristica ", heuristica_hijo)
+            # En caso de que el proximo nodo tenga un mejor valor heuristico lo almacenamos en mejor_hijo
+            # y actualizamos el valor heuristico por el del hijo para compararlo con los demás hijos
+            if(heuristica_hijo <= mejor_heuristica):
+                mejor_hijo = hijo[0]
+                mejor_heuristica = heuristica_hijo
 
-        #Si no existe un mejor nodo que el actual abandonamos la búsqueda
-        if not mejor_hijo:
+        #Si existe un hijo con mejor valor heuristico, lo convertimos en el nodo actual
+        if mejor_hijo:
+            padres[mejor_hijo] = nodo_actual
+            nodo_actual = mejor_hijo
+            heuristica_actual = mejor_heuristica
+        # Si no, abandonamos la búsqueda
+        else:
+            print("No se encontro un mejor hijo")
             break
 
     if(nodo_meta):
@@ -114,6 +120,6 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
         ruta.reverse() # Invertimos el orden para mostrar la ruta desde nodo_inicio->nodo_final 
         print("\nRuta ", ruta)
     else:
-        print("No existe un nodo proximo mejor")
+        print("No existe una ruta al nodo final")
 
-busqueda_escalada_maxima_pendiente(grafo,tabla,'14','5','horario')
+busqueda_escalada_maxima_pendiente(grafo,tabla,'14','5','antihorario')
