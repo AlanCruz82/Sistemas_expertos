@@ -66,4 +66,7 @@ def busqueda_anchura(grafo,nodo_inicial,nodo_final,sentido):
     else:
         print("No hay ruta existente")
 
-busqueda_anchura(grafo,'14','25','horario')
+nodo_inicio = input("Diite el nodo inicial : ")
+nodo_fin = input("Digite el nodo final : ")
+direccion = input("Digite el sentido : ")
+busqueda_anchura(grafo,nodo_inicio,nodo_fin,direccion)

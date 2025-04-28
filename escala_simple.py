@@ -117,4 +117,7 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
     else:
         print("No existe un nodo proximo mejor")
 
-busqueda_escalada_simple(grafo,tabla,'14','5','horario')
+nodo_inicio = input("Diite el nodo inicial : ")
+nodo_fin = input("Digite el nodo final : ")
+direccion = input("Digite el sentido : ")
+busqueda_escalada_simple(grafo,tabla,nodo_inicio,nodo_fin,direccion)
