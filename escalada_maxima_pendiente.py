@@ -109,8 +109,6 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
         # Si no, abandonamos la búsqueda
         else:
             print("\nNO HAY UN MEJOR NODO")
-            for hijo in hijos:
-                print(f"Nodo {hijo[0]} heuristica {obtener_heuristica(tabla,hijo[0],nodo_final)}")
             break
         
     print("\nRuta ", ruta)

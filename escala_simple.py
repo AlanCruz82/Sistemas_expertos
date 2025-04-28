@@ -78,7 +78,7 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
     heuristica_actual = obtener_heuristica(tabla,nodo_actual,nodo_final)
 
     while not nodo_meta:
-        print(f"Nodo {nodo_actual} visitado heuristica {heuristica_actual}")
+        print(f"\nNodo {nodo_actual} visitado heuristica {heuristica_actual}")
 
         if(nodo_actual == nodo_final):
             nodo_meta = True
@@ -93,6 +93,7 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
 
         for hijo in hijos:
             proxima_heuristica = obtener_heuristica(tabla,hijo[0],nodo_final)
+            print(f"PADRE {nodo_actual} Nodo {hijo[0]} heuristica {proxima_heuristica}")
             # En caso de que el proximo nodo tenga un mejor valor lo volvemos el nodo actual
             if(proxima_heuristica <= heuristica_actual):
                 nodo_actual = hijo[0]
@@ -105,8 +106,6 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
         #Si no existe un mejor nodo que el actual abandonamos la búsqueda
         if not mejor_hijo:
             print("\nNO HAY UN MEJOR NODO")
-            for hijo in hijos:
-                print(f"Nodo {hijo[0]} heuristica {obtener_heuristica(tabla,hijo[0],nodo_final)}")
             break
     
     print("\nRuta ", ruta)
