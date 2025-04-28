@@ -73,17 +73,15 @@ def obtener_heuristica(tabla,nodo_origen,nodo_destino):
 
 def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
     nodo_actual = nodo_inicial
-    padres = {}
+    ruta = [nodo_inicial]
     nodo_meta = False
     heuristica_actual = obtener_heuristica(tabla,nodo_actual,nodo_final)
 
     while not nodo_meta:
-        print(nodo_actual, "Visitado")
-        print(heuristica_actual)
+        print(f"Nodo {nodo_actual} visitado heuristica {heuristica_actual}")
 
         if(nodo_actual == nodo_final):
             nodo_meta = True
-            print("Meta")
             break
 
         hijos = grafo[nodo_actual]
@@ -97,8 +95,8 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
             proxima_heuristica = obtener_heuristica(tabla,hijo[0],nodo_final)
             # En caso de que el proximo nodo tenga un mejor valor lo volvemos el nodo actual
             if(proxima_heuristica <= heuristica_actual):
-                padres[hijo[0]] = nodo_actual
                 nodo_actual = hijo[0]
+                ruta.append(nodo_actual)
                 heuristica_actual = proxima_heuristica
                 # Si encontramos un mejor nodo mantenemos la búsqueda
                 mejor_hijo = True
@@ -106,16 +104,12 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
         
         #Si no existe un mejor nodo que el actual abandonamos la búsqueda
         if not mejor_hijo:
+            print("\nNO HAY UN MEJOR NODO")
+            for hijo in hijos:
+                print(f"Nodo {hijo[0]} heuristica {obtener_heuristica(tabla,hijo[0],nodo_final)}")
             break
-
-    if(nodo_meta):
-        ruta = [nodo_final] 
-        while ruta[-1] != nodo_inicial: # Hasta alcanzar el nodo inicial en la ruta
-            ruta.append(padres[ruta[-1]]) # Agregamos el padre del ultimo nodo en la ruta
-        ruta.reverse() # Invertimos el orden para mostrar la ruta desde nodo_inicio->nodo_final 
-        print("\nRuta ", ruta)
-    else:
-        print("No existe un nodo proximo mejor")
+    
+    print("\nRuta ", ruta)
 
 nodo_inicio = input("Diite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")

@@ -73,17 +73,15 @@ def obtener_heuristica(tabla,nodo_origen,nodo_destino):
 
 def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,sentido):
     nodo_actual = nodo_inicial
-    padres = {}
+    ruta = [nodo_inicial]
     nodo_meta = False
     heuristica_actual = obtener_heuristica(tabla,nodo_actual,nodo_final)
 
     while not nodo_meta:
-        print(nodo_actual, "Visitado")
-        print(heuristica_actual)
+        print(f"\nNodo {nodo_actual} visitado heuristica {heuristica_actual} \n")
 
         if(nodo_actual == nodo_final):
             nodo_meta = True
-            print("Meta")
             break
 
         hijos = grafo[nodo_actual]
@@ -96,7 +94,7 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
 
         for hijo in hijos:
             heuristica_hijo = obtener_heuristica(tabla,hijo[0],nodo_final)
-            print("Nodo", hijo[0], "heuristica ", heuristica_hijo)
+            print(f"PADRE {nodo_actual}  Nodo {hijo[0]} heuristica {heuristica_hijo}")
             # En caso de que el proximo nodo tenga un mejor valor heuristico lo almacenamos en mejor_hijo
             # y actualizamos el valor heuristico por el del hijo para compararlo con los demás hijos
             if(heuristica_hijo <= mejor_heuristica):
@@ -105,23 +103,18 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
 
         #Si existe un hijo con mejor valor heuristico, lo convertimos en el nodo actual
         if mejor_hijo:
-            padres[mejor_hijo] = nodo_actual
             nodo_actual = mejor_hijo
+            ruta.append(nodo_actual)
             heuristica_actual = mejor_heuristica
         # Si no, abandonamos la búsqueda
         else:
-            print("No se encontro un mejor hijo")
+            print("\nNO HAY UN MEJOR NODO")
+            for hijo in hijos:
+                print(f"Nodo {hijo[0]} heuristica {obtener_heuristica(tabla,hijo[0],nodo_final)}")
             break
-
-    if(nodo_meta):
-        ruta = [nodo_final] 
-        while ruta[-1] != nodo_inicial: # Hasta alcanzar el nodo inicial en la ruta
-            ruta.append(padres[ruta[-1]]) # Agregamos el padre del ultimo nodo en la ruta
-        ruta.reverse() # Invertimos el orden para mostrar la ruta desde nodo_inicio->nodo_final 
-        print("\nRuta ", ruta)
-    else:
-        print("No existe una ruta al nodo final")
-
+        
+    print("\nRuta ", ruta)
+    
 nodo_inicio = input("Diite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
 direccion = input("Digite el sentido : ")
