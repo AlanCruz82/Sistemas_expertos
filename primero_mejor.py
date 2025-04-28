@@ -113,7 +113,7 @@ def busqueda_primero_mejor(grafo,tabla,nodo_inicial,nodo_final,sentido):
     else:
         print("No existe un nodo proximo mejor")
 
-nodo_inicio = input("Diite el nodo inicial : ")
+nodo_inicio = input("Digite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
 direccion = input("Digite el sentido : ")
 busqueda_primero_mejor(grafo,tabla,nodo_inicio,nodo_fin,direccion)

@@ -114,8 +114,8 @@ def busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicial,nodo_final,senti
             break
         
     print("\nRuta ", ruta)
-    
-nodo_inicio = input("Diite el nodo inicial : ")
+
+nodo_inicio = input("Digite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
 direccion = input("Digite el sentido : ")
 busqueda_escalada_maxima_pendiente(grafo,tabla,nodo_inicio,nodo_fin,direccion)

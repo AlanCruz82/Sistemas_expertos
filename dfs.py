@@ -63,7 +63,7 @@ def busqueda_profundidad(grafo,nodo_inicial,nodo_final,sentido):
     else:
         print("No hay ruta existente")
 
-nodo_inicio = input("Diite el nodo inicial : ")
+nodo_inicio = input("Digite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
 direccion = input("Digite el sentido : ")
 busqueda_profundidad(grafo,nodo_inicio,nodo_fin,direccion)
