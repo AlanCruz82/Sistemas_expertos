@@ -79,17 +79,16 @@ def busqueda_primero_mejor(grafo,tabla,nodo_inicial,nodo_final,sentido):
 
     # Mientras no lleguemos al nodo meta y sigan existiendo nodos abiertos
     while(not(nodo_meta) and abiertos):
-        print("Nodos abiertos",abiertos)
+        print(f"\nNodos abiertos {abiertos}\n")
         # Elegimos el mejor nodo de abiertos (menor valor heuristico)
         nodo_actual, heuristica_actual = min(abiertos, key=lambda nodo: nodo[1])
         abiertos.remove((nodo_actual,heuristica_actual))
         cerrados.add(nodo_actual)
 
-        print(nodo_actual, "Visitado", heuristica_actual)
+        print(f"Nodo {nodo_actual} visitado heuristica {heuristica_actual}\n")
 
         if(nodo_actual == nodo_final):
             nodo_meta = True
-            print("Meta")
             break
 
         hijos = grafo[nodo_actual]
@@ -98,9 +97,10 @@ def busqueda_primero_mejor(grafo,tabla,nodo_inicial,nodo_final,sentido):
             hijos = reversed(grafo[nodo_actual])
 
         for hijo,arco in hijos:
+             # Si el nodo hijo no se ha abierto antes y no lo se ha cerrado, lo agregamos a los nodos abiertos
              if hijo not in cerrados and not any(h[0] == hijo for h in abiertos):
-                heuristica_hijo = arco + obtener_heuristica(tabla, hijo, nodo_final)
-                print("Abierto ", hijo,heuristica_hijo)
+                heuristica_hijo = arco + obtener_heuristica(tabla,hijo,nodo_final)
+                print(f"Padre {nodo_actual} Nodo abierto {hijo} heuristica {heuristica_hijo}")
                 abiertos.append((hijo, heuristica_hijo))
                 padres[hijo] = nodo_actual
 
