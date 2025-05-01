@@ -109,6 +109,7 @@ def busqueda_escalada_simple(grafo,tabla,nodo_inicial,nodo_final,sentido):
             break
     
     print("\nRuta ", ruta)
+    input("Presione ENTER para salir")
 
 nodo_inicio = input("Digite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
