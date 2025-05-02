@@ -82,6 +82,7 @@ def busqueda_primero_mejor(grafo,tabla,nodo_inicial,nodo_final,sentido):
         print(f"\nNodos abiertos {abiertos}\n")
         # Elegimos el mejor nodo de abiertos (menor valor heuristico)
         nodo_actual, heuristica_actual = min(abiertos, key=lambda nodo: nodo[1])
+        # Cerramos el nodo actual, almacenando el nodo y su valor heuristico
         abiertos.remove((nodo_actual,heuristica_actual))
         cerrados.add(nodo_actual)
 
@@ -97,21 +98,31 @@ def busqueda_primero_mejor(grafo,tabla,nodo_inicial,nodo_final,sentido):
             hijos = reversed(grafo[nodo_actual])
 
         for hijo,arco in hijos:
-             # Si el nodo hijo no se ha abierto antes y no lo se ha cerrado, lo agregamos a los nodos abiertos
+             # Si el nodo hijo no se ha visitado/cerrado y aún no está abierto, lo agregamos a abiertos
              if hijo not in cerrados and not any(h[0] == hijo for h in abiertos):
                 heuristica_hijo = arco + obtener_heuristica(tabla,hijo,nodo_final)
                 print(f"Padre {nodo_actual} Nodo abierto {hijo} heuristica {heuristica_hijo}")
                 abiertos.append((hijo, heuristica_hijo))
                 padres[hijo] = nodo_actual
 
+    # Si se llego al nodo meta, regresamos la ruta completa
     if(nodo_meta):
         ruta = [nodo_final] 
         while ruta[-1] != nodo_inicial: # Hasta alcanzar el nodo inicial en la ruta
             ruta.append(padres[ruta[-1]]) # Agregamos el padre del ultimo nodo en la ruta
         ruta.reverse() # Invertimos el orden para mostrar la ruta desde nodo_inicio->nodo_final 
         print("\nRuta ", ruta)
+    # Si no, regresamos la ruta parcial
     else:
-        print("No existe un nodo proximo mejor")
+        # Construimos la ruta parcial desde el nodo actual hasta el nodo inicio
+        ruta = [nodo_actual] 
+        while ruta[-1] != nodo_inicial:
+            ruta.append(padres[ruta[-1]])
+        ruta.reverse()
+        print("No existe un ABIERTO mejor")
+        print("\nRuta ", ruta)
+
+    input("Presione ENTER para salir")
 
 nodo_inicio = input("Digite el nodo inicial : ")
 nodo_fin = input("Digite el nodo final : ")
